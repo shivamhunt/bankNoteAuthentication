@@ -20,6 +20,17 @@ y= df.iloc[:,-1]
 
 from sklearn.model_selection import train_test_split
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3,random_state = 0)
+"""support vector machine classifier""
+from sklearn.svm import SVC
+csvm= SVC(kernel='linear')  
+csvm.fit(x_train,y_train)
+
+"""Accuracy"""
+y_pred_svm=dcf.predict(x_test)
+scnf=accuracy_score(y_test,y_pred_svm)
+scnf
+
+
 """applying decision tree classifier"""
 from sklearn.tree import DecisionTreeClassifier
 dcf = DecisionTreeClassifier(criterion = "gini", 
