@@ -9,6 +9,7 @@ Original file is located at
 
 import pandas as pd
 import numpy as np
+from sklearn.metrics import accuracy_score
 
 df = pd.read_csv('/home/hunter/Dataset/BankNote_Authentication.csv')
 
@@ -19,6 +20,17 @@ y= df.iloc[:,-1]
 
 from sklearn.model_selection import train_test_split
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3,random_state = 0)
+"""applying decision tree classifier"""
+from sklearn.tree import DecisionTreeClassifier
+dcf = DecisionTreeClassifier(criterion = "gini", 
+            random_state = 100,max_depth=3, min_samples_leaf=5)
+dcf.fit(x_train,y_train)
+
+y_pred_dt=dcf.predict(x_test)
+"""accuracy of decision tree classifier"""
+dcnf=accuracy_score(y_test,y_pred_dt)
+dcnf
+
 
 from sklearn.ensemble import RandomForestClassifier
 cf = RandomForestClassifier()
@@ -26,10 +38,10 @@ cf.fit(x_train,y_train)
 
 y_pred = cf.predict(x_test)
 
-from sklearn.metrics import accuracy_score
+"""accuracy of random forest classifier"""
 cnf = accuracy_score(y_test,y_pred)
 cnf
-
+"""creating the pickle file"""
 import pickle
 pickel_out = open("cf.pkl" , "wb")
 pickle.dump(cf,pickel_out)
